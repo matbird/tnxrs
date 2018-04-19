@@ -1,6 +1,8 @@
 package com.mm.tnxrs.common.utils;
 
 import java.security.MessageDigest;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class StringUtils {
 	/**
@@ -187,6 +189,18 @@ public class StringUtils {
         buffer.delete(buffer.length() - delimiter.length(), buffer.length());
 
         return buffer.toString();
+    }
+    
+    /**
+     * 过滤掉特殊字符,只留下字母和数字,主要用在模糊查询,避免频繁操作数据库
+     * @param source
+     * @return
+     */
+    public static String filter(String source) {
+    	String regEx="[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？_ \"]"; 
+		Pattern p = Pattern.compile(regEx); 
+		Matcher m = p.matcher(source);
+    	return m.replaceAll("").trim();
     }
 
     /**

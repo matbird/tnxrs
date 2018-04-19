@@ -7,7 +7,6 @@ import com.jfinal.core.Controller;
 import com.mm.tnxrs.common.Require;
 import com.mm.tnxrs.common.bean.BaseResponse;
 import com.mm.tnxrs.common.bean.Code;
-import com.mm.tnxrs.common.bean.DataResponse;
 import com.mm.tnxrs.common.utils.StringUtils;
 
 public class BaseController extends Controller{
@@ -41,19 +40,6 @@ public class BaseController extends Controller{
 	 */
 	public void renderFailed(String message){
 		renderJson(new BaseResponse(Code.FAILED, message));
-	}
-	
-	/**
-	 * 响应数组类型
-	 * @param data
-	 */
-	public void renderDataResponse(List<?> data){
-		DataResponse dataResponse = new DataResponse(data);
-		if(data == null || data.size() == 0)
-			dataResponse.setMessage("未查询到数据");
-		else
-			dataResponse.setMessage("success");
-		renderJson(dataResponse);
 	}
 	
 	/**

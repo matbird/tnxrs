@@ -1,37 +1,40 @@
 package com.mm.tnxrs.common.bean;
 
-import java.util.List;
+import com.alibaba.fastjson.JSONObject;
 
 public class DataResponse extends BaseResponse{
-	private List<?> data;
-
-	public DataResponse() {
+	private Object data;
+	
+	public DataResponse(){
 		super();
 	}
-
-	public DataResponse(Integer code, String message) {
-		super(code, message);
-	}
-
-	public DataResponse(Integer code) {
-		super(code);
-	}
-
-	public DataResponse(String message) {
-		super(message);
-	}
-
-	public DataResponse(List<?> data) {
+	
+	public DataResponse(Object data){
 		this.data = data;
 	}
-
-	public List<?> getData() {
-		return data;
+	
+	public DataResponse(Integer code){
+		super(code);
 	}
-
-	public DataResponse setData(List<?> data) {
+	
+	public DataResponse(Integer code,String message){
+		super(code, message);
+	}
+	
+	public DataResponse setData(Object data){
 		this.data = data;
 		return this;
 	}
-
+	
+	public Object getData(){
+		return data;
+	}
+	
+	public DataResponse put(String key,Object value) {
+		if (data == null) {
+			data = new JSONObject();
+		}
+		((JSONObject)data).put(key, value);
+		return this;
+	}
 }
