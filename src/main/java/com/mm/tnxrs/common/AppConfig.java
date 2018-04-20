@@ -1,9 +1,6 @@
-package com.mm.tnxrs;
+package com.mm.tnxrs.common;
 
 import java.sql.Connection;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.wall.WallFilter;
@@ -20,12 +17,11 @@ import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
-import com.jfinal.plugin.hikaricp.HikariCpPlugin;
 import com.jfinal.render.ViewType;
 import com.jfinal.template.Engine;
-import com.mm.tnxrs.interceptor.ErrorInterceptor;
-import com.mm.tnxrs.model._MappingKit;
-import com.mm.tnxrs.routes.ApiRoutes;
+import com.mm.tnxrs.common.interceptor.ErrorInterceptor;
+import com.mm.tnxrs.common.model._MappingKit;
+import com.mm.tnxrs.common.route.ApiRoutes;
 
 public class AppConfig extends JFinalConfig{
 	

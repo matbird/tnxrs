@@ -1,4 +1,4 @@
-package com.mm.tnxrs.model;
+package com.mm.tnxrs.common.model;
 
 import javax.sql.DataSource;
 
@@ -6,7 +6,7 @@ import com.jfinal.kit.PathKit;
 import com.jfinal.plugin.activerecord.dialect.MysqlDialect;
 import com.jfinal.plugin.activerecord.generator.Generator;
 import com.jfinal.plugin.druid.DruidPlugin;
-import com.mm.tnxrs.AppConfig;
+import com.mm.tnxrs.common.AppConfig;
 
 public class _Generator {
 
@@ -19,12 +19,12 @@ public class _Generator {
 	
 	public static void main(String[] args) {
 		// base model使用的包名
-		String baseModelPackageName = "com.mm.tnxrs.model.base";
+		String baseModelPackageName = "com.mm.tnxrs.common.model.base";
 		// base model生成文件的保存路径
 		String baseModelOutputDir = PathKit.getWebRootPath() +
-				"/src/main/java/com/mm/tnxrs/model/base";
+				"/src/main/java/com/mm/tnxrs/common/model/base";
 		// model 使用的包名
-		String modelPackageName = "com.mm.tnxrs.model";
+		String modelPackageName = "com.mm.tnxrs.common.model";
 		// model 生成文件的保存路径
 		String modelOutputDir = baseModelOutputDir+"/..";
 		

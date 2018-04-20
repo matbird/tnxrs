@@ -1,4 +1,4 @@
-package com.mm.tnxrs.interceptor;
+package com.mm.tnxrs.app.interceptor;
 
 import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;

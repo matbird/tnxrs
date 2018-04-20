@@ -1,4 +1,4 @@
-package com.mm.tnxrs.api;
+package com.mm.tnxrs.app.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,20 +14,20 @@ import com.jfinal.aop.Before;
 import com.jfinal.core.ActionKey;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.ehcache.CacheKit;
+import com.mm.tnxrs.app.interceptor.CommonParamInterceptor;
+import com.mm.tnxrs.app.service.BookService;
+import com.mm.tnxrs.app.service.SerialService;
 import com.mm.tnxrs.common.bean.Code;
 import com.mm.tnxrs.common.bean.DataResponse;
-import com.mm.tnxrs.common.utils.StringUtils;
-import com.mm.tnxrs.interceptor.CommonParamInterceptor;
-import com.mm.tnxrs.model.Book;
-import com.mm.tnxrs.model.Category;
-import com.mm.tnxrs.model.Serial;
-import com.mm.tnxrs.service.BookService;
-import com.mm.tnxrs.service.SerialService;
+import com.mm.tnxrs.common.kit.StringUtils;
+import com.mm.tnxrs.common.model.Book;
+import com.mm.tnxrs.common.model.Category;
+import com.mm.tnxrs.common.model.Serial;
 
 //@Before(CommonParamInterceptor.class)
-public class CommonApiController extends BaseController{
+public class AppController extends BaseController{
 
-//	private static final String BASE_URL = "http://localhost/";
+	private static final String BASE_URL = "http://localhost/";
 	private final Category dao = new Category().dao();
 	
 	static SerialService ssrv = SerialService.me;
@@ -192,48 +192,4 @@ public class CommonApiController extends BaseController{
 		}
 		
 	}
-	
-	/*public class Book{
-		private int id;
-		private String name;
-		private String cover;
-		private String download;
-		private List<String> images;
-		public Book(int id, String name, String cover) {
-			super();
-			this.id = id;
-			this.name = name;
-			this.cover = cover;
-		}
-		public int getId() {
-			return id;
-		}
-		public void setId(int id) {
-			this.id = id;
-		}
-		public String getName() {
-			return name;
-		}
-		public void setName(String name) {
-			this.name = name;
-		}
-		public String getCover() {
-			return cover;
-		}
-		public void setCover(String cover) {
-			this.cover = cover;
-		}
-		public String getDownload() {
-			return download;
-		}
-		public void setDownload(String download) {
-			this.download = download;
-		}
-		public List<String> getImages() {
-			return images;
-		}
-		public void setImages(List<String> images) {
-			this.images = images;
-		}
-	}*/
 }

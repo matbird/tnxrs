@@ -1,4 +1,4 @@
-package com.mm.tnxrs.common.utils;
+package com.mm.tnxrs.common.kit;
 
 import java.security.MessageDigest;
 import java.util.regex.Matcher;

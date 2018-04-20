@@ -1,8 +1,8 @@
-package com.mm.tnxrs.service;
+package com.mm.tnxrs.app.service;
 
 import java.util.List;
 
-import com.mm.tnxrs.model.Book;
+import com.mm.tnxrs.common.model.Book;
 
 public class BookService {
 

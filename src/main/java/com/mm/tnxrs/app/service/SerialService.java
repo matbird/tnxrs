@@ -1,11 +1,11 @@
-package com.mm.tnxrs.service;
+package com.mm.tnxrs.app.service;
 
 import java.util.List;
 
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.ehcache.CacheKit;
-import com.mm.tnxrs.model.Book;
-import com.mm.tnxrs.model.Serial;
+import com.mm.tnxrs.common.model.Book;
+import com.mm.tnxrs.common.model.Serial;
 
 public class SerialService {
 

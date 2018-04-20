@@ -1,4 +1,4 @@
-package com.mm.tnxrs.model.base;
+package com.mm.tnxrs.common.model.base;
 
 import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.IBean;
