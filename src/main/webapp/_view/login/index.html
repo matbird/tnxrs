@@ -1,0 +1,114 @@
+#@layout()
+#define main()
+	<div class="tx-panel-box tx-pull-left">
+		<div class="tx-panel tx-reg-box">
+			<div class="tx-reg-panel">
+				<h2 class="tx-reg-panel-name">登&nbsp;&nbsp;录</h2>
+				<div class="tx-reg-panel-content">
+					<form id="login_form" action="/login/doLogin?returnUrl=#(returnUrl)" method="post">
+						<table class="tx-reg-table">
+							<tr>
+								<th>邮箱</th>
+								<td>
+									<input type="text" class="TEXT" name="userName" />
+									<span id="userNameMsg"></span>
+								</td>
+							</tr>
+							<tr>
+								<th>密码</th>
+								<td>
+									<input type="password" class="TEXT" name="password" />
+									<span id="passwordMsg" ></span>
+								</td>
+							</tr>
+							<tr>
+								<th><img src="/login/captcha" class="captcha" title="点击刷新" onclick="updateCaptcha();" /></th>
+								<td>
+									<input type="text" name="captcha" class="TEXT" id="captchaInput"/>
+									<span id="captchaMsg"></span>
+								</td>
+							</tr>
+							<tr>
+								<th>&nbsp;</th>
+								<td>
+									<input type="checkbox" id="keepLogin" name="keepLogin" value='1' checked='checked'/>&nbsp;
+									<label for="keepLogin" style="cursor:pointer;">保持登录<span style="color:#A00;">(请勿在公用电脑上使用)</span></label>
+								</td>
+							</tr>
+							<tr>
+								<th>&nbsp;</th>
+								<td>
+									<input type="submit" class="SUBMIT" value="登录"/>
+								</td>
+							</tr>
+							<tr>
+								<td class="jump-link" colspan="2">
+									没有账号&nbsp;<a href="/reg" onclick="appendReturnUrl(this)">现在注册?</a>,
+									<a href="/login/forgetPassword">忘记密码</a>&nbsp;
+									<a href="/reg/notActivated">还没激活?</a>
+								</td>
+							</tr>
+						</table>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+#end
+
+#define js()
+	<script type="text/javascript" src="/assets/jquery_form/jquery.form.min.js"></script>
+	<script type="text/javascript" src="/assets/layer/layer/layer.js"></script>
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#login_form").ajaxForm({
+				dataType:"json",
+				beforeSubmit:function(formData,jqForm,options){
+					$(".tx-reg-table td span").text("");
+				},
+				success:function(ret){
+					// 业务层验证成功
+					if(ret.isOk){
+						location.href = ret.returnUrl;
+						return;
+					}
+					
+					// 业务层验证失败
+					if(ret.isFail){
+						layer.msg(ret.msg,{
+							shift:6,
+							shade:0.3,
+							time:2500,
+							offset:"165px",
+							closeBtn:1,
+							shadeClose:true
+						},function(){
+							updateCaptcha();
+						});
+						return ;
+					}
+					
+					// Validator 验证失败
+					if(ret.userNameMsg){
+						$("#userNameMsg").text(ret.userNameMsg);
+					}
+					if(ret.passwordMsg){
+						$("#passwordMsg").text(ret.passwordMsg);
+					}
+					if(ret.captchaMsg){
+						updateCaptcha();
+						$("#captchaMsg").text(ret.captchaMsg);
+					}
+				},
+				error:function(ret){},
+				complete:function(ret){}
+			});
+		});
+		
+		function updateCaptcha(){
+			$(".captcha").attr("src","/login/captcha?v="+Math.random());
+			$("#captchaInput").val("");
+		}
+	</script>
+#end

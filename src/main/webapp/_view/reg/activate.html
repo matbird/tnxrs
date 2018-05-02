@@ -1,0 +1,19 @@
+#@layout()
+#define main()
+<div class="tx-panel-box tx-pull-left">
+	<div class="tx-panel tx-reg-box">
+		<div id="tx-reg-msg-ok-panel" style="display:block;">
+			<h2 class="tx-reg-panel-name">
+				#(ret.isOk ? "激活成功" : "激活失败")
+			</h2>
+			<div id="reg-ok-msg">
+				#if(ret.isOk)
+					点击前往登录页面,&nbsp;<a href="/login" style="color:blue;">立即登录</a>
+				#else
+					#(ret.msg)
+				#end
+			</div>
+		</div>
+	</div>
+</div>
+#end

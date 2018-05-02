@@ -61,6 +61,16 @@
 	       memoryStoreEvictionPolicy="LRU">
 	</cache>
 			
+	<!-- 缓存登录用户信息，空闲 30 分钟则清除，否则一直保持登录状态，
+        登录过期时间是指 session表中的 expireAt，此缓存仅用于统计 login_log
+        以及提升性能(不必总读取数据库 session 表) -->
+    <cache name="loginAccount"
+           maxEntriesLocalHeap="90000"
+           eternal="false"
+           timeToIdleSeconds="1800"
+           timeToLiveSeconds="0"
+           overflowToDisk="false"
+            />
 	<!--
 	Sample caches. Following are some example caches. Remove these before use.
 	-->

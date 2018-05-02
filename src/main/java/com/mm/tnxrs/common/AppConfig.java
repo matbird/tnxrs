@@ -20,8 +20,10 @@ import com.jfinal.plugin.ehcache.EhCachePlugin;
 import com.jfinal.render.ViewType;
 import com.jfinal.template.Engine;
 import com.mm.tnxrs.common.interceptor.ErrorInterceptor;
+import com.mm.tnxrs.common.interceptor.LoginSessionInterceptor;
 import com.mm.tnxrs.common.model._MappingKit;
 import com.mm.tnxrs.common.route.ApiRoutes;
+import com.mm.tnxrs.common.route.WebRoutes;
 
 public class AppConfig extends JFinalConfig{
 	
@@ -45,17 +47,18 @@ public class AppConfig extends JFinalConfig{
 		me.setDevMode(p.getBoolean("devMode", false));
 		me.setJsonFactory(MixedJsonFactory.me());
 		me.setEncoding("UTF-8");
-		me.setViewType(ViewType.JSP);
 	}
 
 	@Override
 	public void configRoute(Routes me) {
 		me.add(new ApiRoutes());
+		me.add(new WebRoutes());
 	}
 
 	@Override
 	public void configEngine(Engine me) {
-		
+		me.addSharedFunction("/_view/common/__layout.html");
+		me.addSharedFunction("/_view/common/__paginate.html");
 	}
 
 	public static DruidPlugin getDruidPlugin() {
@@ -86,7 +89,8 @@ public class AppConfig extends JFinalConfig{
 
 	@Override
 	public void configInterceptor(Interceptors me) {
-		me.add(new ErrorInterceptor());
+//		me.add(new ErrorInterceptor());
+		me.add(new LoginSessionInterceptor());
 	}
 
 	@Override

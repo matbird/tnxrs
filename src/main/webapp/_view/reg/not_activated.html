@@ -1,0 +1,49 @@
+#@layout()
+#define main()
+	<div class="tx-panel-box tx-pull-left">
+		<div class="tx-panel tx-reg-box">
+			<div id="tx-resend-activate-email">
+				<input type="text" class="TEXT" id="email" placeholder="填写注册邮箱" />
+				<input type="button" class="BUTTON" id="submit_btn" value="重发激活邮件"/>
+			</div>
+		</div>
+	</div>
+#end
+
+#define js()
+	<script type="text/javascript" src="/assets/layer/layer/layer.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#submit_btn").bind("click",function(){
+				$.ajax("/reg/reSendActivateEmail",{
+					type:"POST",
+					cache:false,
+					dataType:"json",
+					data:{
+						email:$("#email").val()
+					},
+					beforeSend:function(){
+						$("#submit_btn").attr("disabled",true);
+					},
+					success:function(ret){
+						layer.msg(ret.msg,
+						{
+							shift:ret.isOk ? 0 : 6,
+							shade:0.3,
+							time:0,
+							offset:"130px",
+							closeBtn:1,
+							shadeClose:false,
+							maxWidth:"1000"
+						},
+						function(){
+							if(ret.isFail){
+								$("#submit_btn").attr("disabled",false);
+							}
+						});
+					}
+				});
+			});
+		});
+	</script>
+#end

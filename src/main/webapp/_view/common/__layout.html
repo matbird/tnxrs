@@ -1,0 +1,89 @@
+#define layout()
+<!DOCTYPE html>
+<html lang="zh-CN" xml:lang="zh-CN">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta name="keywords" content="#(seoKeywords ?? '童年')" />
+	<meta name="description" content="#(seoDescr ?? '官网')" />
+	<title>#(seoTitle ?? "童年小人书")</title>
+	
+	<link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/assets/pure/pure-min.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/tnxrs-com-v1.0.css">
+</head>
+<body>
+<!-- 头部容器 -->
+<div class="tx-header-box">
+	<div class="tx-header-main">
+		<h3 class="tx-logo-box">
+			<a href="/" title="返回首页">ComicBook</a>
+		</h3>
+		
+		<ul class="tx-nav-menu-box">
+			<li><a href="/">首页</a></li>
+			<li><a href="/category">分类</a></li>
+			<li><a href="/feedback">反馈</a></li>
+			<li><a href="/about">关于</a></li>
+		</ul>
+		
+		#if(loginAccount)
+			<div class="tx-user-toolbar-box">
+				<a href="/my" class="tx-login-user-image">
+					<img src="/upload/avatar/#(loginAccount.avatar)" />
+				</a>
+				
+				<span class="tx-login-user-dropdown-menu">
+					<a href="/my">
+						<span>#(loginAccount.nickName)</span><li class="tx-caret-down"></li>
+					</a>
+					<ul class="tx-login-user-dropdown-menu-content">
+						<li><a href="/my">我的空间</a></li>
+						<li><a href="/my/referMe">@提到我</a></li>
+						<li><a href="/my/message">我的私信</a></li>
+						<li><a href="javascript:void(0);" onclick="logout();">退出登录</a></li>
+					</ul>
+				</span>
+			</div>
+		#else
+			<div class="tx-no-login">
+				<span><a href="/login" onclick="javascript:void(0)">登录</a></span>
+				<span><a href="/reg">注册</a></span>
+			</div>
+		#end
+	</div>
+</div>
+
+<!-- 中间主题部分 -->
+<div class="tx-body-box clearfix">
+	#@main()
+</div>
+
+<!-- 底部容器 -->
+<div class="tx-footer-box">
+	<div class="tx-footer-main">
+		<dl>
+			<dt>友情链接</dt>
+			<dd><a href="https://www.baidu.com">baidu</a></dd>
+			<dd><a href="http://www.qq.com">tencent</a></dd>
+			<dd><a href="http://www.taobao.com">taobao</a></dd>
+			<dd><a href="http://www.jd.com">JD</a></dd>
+		</dl>
+		<dl>
+			<dt>联系我们</dt>
+			<dd><a href="/">baidu</a></dd>
+			<dd><a href="/">tencent</a></dd>
+			<dd><a href="/">taobao</a></dd>
+			<dd><a href="/">JD</a></dd>
+		</dl>
+	</div>
+</div>
+<script type="text/javascript" src="/assets/js/jquery.min-v1.11.3.js"></script>
+<script type="text/javascript" src="/assets/js/tnxrs-com-v1.0.js"></script>
+
+#@js?()
+</body>
+</html>
+#end

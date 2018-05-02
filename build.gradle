@@ -37,6 +37,9 @@ dependencies {
     compile 'mysql:mysql-connector-java:5.1.46'
     compile 'com.alibaba:fastjson:1.2.46'
     compile 'net.sf.ehcache:ehcache-core:2.6.11'
+    compile 'org.apache.commons:commons-email:1.2'
+    compile 'javax.mail:javax.mail-api:1.5.3'
+    compile 'com.sun.mail:javax.mail:1.5.3'
 }
 
 tasks.withType(JavaCompile) {  

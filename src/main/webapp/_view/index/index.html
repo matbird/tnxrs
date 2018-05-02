@@ -1,0 +1,24 @@
+#@layout()
+#define main()
+<!-- 内容容器 -->
+<div class="tx-panel-box tx-pull-left">
+	<div class="tx-panel">
+		<ul class="tx-panel-list">
+			#for(s : serialList)
+				<li>
+					<div class="tx-panel-img">
+						<a href="/"><img src="#(s.cover)" onerror="onerror=null;src='/assets/img/failed.jpg'"/></a>
+					</div>
+					<div class="tx-panel-item">
+						<h3><a href="/">#(s.name)</a></h3>
+						<p>
+							#(s.desc)
+						</p>
+					</div>
+				</li>
+			#end
+		</ul>
+	</div>
+</div>
+#include("_sidebar.html")
+#end

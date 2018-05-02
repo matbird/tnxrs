@@ -1,0 +1,133 @@
+#@layout()
+#define main()
+<div class="tx-panel-box tx-pull-left">
+	<div class="tx-panel tx-reg-box">
+		<div class="tx-reg-panel">
+			<h2 class="tx-reg-panel-name">注&nbsp;&nbsp;册</h2>
+			<div class="tx-reg-panel-content">
+				<form id="reg_form" action="/reg/save" method="post">
+					<table class="tx-reg-table">
+						<tr>
+							<th>昵称</th>
+							<td>
+								<input type="text" name="nickName" class="TEXT"/>
+								<span id="nickNameMsg"></span>
+							</td>
+						</tr>
+						<tr>
+							<th>邮箱</th>
+							<td>
+								<input type="text" name="userName" class="TEXT"/>
+								<span id="userNameMsg"></span>
+							</td>
+						</tr>
+						<tr>
+							<th>密码</th>
+							<td>
+								<input type="password" name="password" class="TEXT"/>
+								<span id="passwordMsg"></span>
+							</td>
+						</tr>
+						<tr>
+							<th><img title="点击刷新" src="/reg/captcha" class="captcha" onclick="updateCaptcha();"/></th>
+							<td>
+								<input type="text" name="captcha" id="captchaInput" class="TEXT"/>
+								<span id="captchaMsg"></span>
+							</td>
+						</tr>
+						<tr>
+							<th>&nbsp;</th>
+							<td>
+								<input id="submit_btn" type="submit" value="注册账号" class="SUBMIT"/>
+							</td>
+						</tr>
+						<tr>
+							<td class="jump-link" colspan=2>
+								已有账号&nbsp;<a href="/login" onclick="appendReturnUrl(this)">直接登录</a>,
+								<a href="/reg/notActivated">还没激活?</a>
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
+		
+		<div id="tx-reg-msg-ok-panel">
+			<h2 class="tx-reg-panel-name">注册成功</h2>
+			<div id="reg-ok-msg">
+				请去往注册邮箱&nbsp;
+				<span style="color:red;" id="regEmail"></span>&nbsp;
+				查收激活邮件激活账号
+			</div>
+		</div>
+	</div>
+</div>
+#end
+
+#define js()
+	<script type="text/javascript" src="/assets/jquery_form/jquery.form.min.js"></script>
+	<script type="text/javascript" src="/assets/layer/layer/layer.js"></script>
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#reg_form").ajaxForm({
+				dataType:"json",
+				// 表单提交之前
+				beforeSubmit:function(formData,jqForm,options){ 
+					// 清空所有验证msg
+					$(".tx-reg-table td span").text("");
+				},
+				// 提交成功回调
+				success:function(ret){
+					// 业务层验证成功,ret就是controller中返回的Ret对象
+					if(ret.isOk){
+						$("submit_btn").attr("disabled",true);
+						$(".tx-reg-panel").hide();
+						$("#regEmail").text(ret.regEmail);
+						$("#tx-reg-msg-ok-panel").show();
+						return ;
+					}
+					// 业务层验证失败
+					if(ret.isFail){
+						layer.msg(ret.msg,{
+							shift:6,
+							shade:0.3,
+							time:2500,
+							offset:"165px",
+							closeBtn:1,
+							shadeClose:true
+						},
+						function(){
+							updateCaptcha();
+						});
+						return ;
+					}
+					
+					// Validator层验证失败
+					if(ret.nickNameMsg){
+						$("#nickNameMsg").text(ret.nickNameMsg);
+					}
+					if(ret.userNameMsg){
+						$("#userNameMsg").text(ret.userNameMsg);
+					}
+					if(ret.passwordMsg){
+						$("#passwordMsg").text(ret.passwordMsg);
+					}
+					if(ret.captchaMsg){
+						updateCaptcha();
+						$("#captchaMsg").text(ret.captchaMsg);
+					}
+				},
+				// ret.status != 200 时回调
+				error:function(ret){},
+				// 最终都会回调
+				complete:function(ret){}
+			});
+		});
+	
+		function updateCaptcha(){
+			$(".captcha").attr("src","/reg/captcha?v="+Math.random());
+			$("#captchaInput").val("");
+		}
+	</script>
+#end
